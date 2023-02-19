@@ -1,0 +1,297 @@
+<html>
+
+<head>
+    <title>Capturar Áudio do Microfone</title>
+</head>
+
+<body>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="chat.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card chat-app">
+                    <div id="plist" class="people-list">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Buscar">
+                        </div>
+                        <ul class="list-unstyled chat-list mt-2 mb-0">
+                            <li class="clearfix active">
+                                <img src="//upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/250px-ChatGPT_logo.svg.png"
+                                    alt="avatar">
+                                <div class="about">
+                                    <div class="name">ChatGPT</div>
+                                    <div class="status"> <i class="fa fa-circle online"></i> online </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="chat">
+                        <div class="chat-header clearfix">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                        <img src="//upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/250px-ChatGPT_logo.svg.png"
+                                            alt="avatar">
+                                    </a>
+                                    <div class="chat-about">
+                                        <h6 class="m-b-0">ChatGPT</h6>
+                                        <small>Última Visualização: 2h atrás</small>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 hidden-sm text-right">
+                                    <input class="form-check-input" type="checkbox" value="" id="translationResult">
+                                    <label class="form-check-label" for="translationResult">
+                                        Trazuir ?
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-history">
+                            <ul class="m-b-0">
+                                <li class="clearfix">
+                                    <div class="message-data text-right">
+                                        <img src="https://media.licdn.com/dms/image/C4E03AQHoLuOHzw1ejw/profile-displayphoto-shrink_800_800/0/1660315506228?e=1681948800&v=beta&t=9km4FMNweopihkuxTSgl4eI2JLdWNtQd99RM02Z6v38"
+                                            alt="avatar">
+                                    </div>
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="chat-message clearfix">
+                            <div class="input-group mb-0">
+                                <div class="form-inline">
+                                    <button class="btn btn-form" id="btnPlay"><i class="fa fa-microphone"></i></button>
+                                    &nbsp;
+
+                                </div>
+                                <select class="form-control" id="languageTargetOptions">
+                                    <option value="ar-EG-SalmaNeural">Arabic - EG</option>
+                                    <option value="ca-ES-AlbaNeural">Catalan - ES</option>
+                                    <option value="da-DK-JeppeNeural">Danish - DK</option>
+                                    <option value="de-DE-BerndNeural">German - DE</option>
+                                    <option value="en-AU-NatashaNeural">English - AU</option>
+                                    <option value="en-CA-ClaraNeural">English - CA</option>
+                                    <option value="en-GB-NoahNeural">English - GB</option>
+                                    <option value="en-IN-NeerjaNeural">English - IN</option>
+                                    <option value="en-US-AmberNeural" selected="selected">English - US</option>
+                                    <option value="es-ES-ElviraNeural">Spanish - ES</option>
+                                    <option value="es-MX-LibertoNeural">Spanish - MX</option>
+                                    <option value="fi-FI-HarriNeural">Finnish - FI</option>
+                                    <option value="fr-CA-JeanNeural">French - CA</option>
+                                    <option value="fr-FR-ClaudeNeural">French - FR</option>
+                                    <option value="hi-IN-MadhurNeural">Hindi - IN</option>
+                                    <option value="it-IT-CataldoNeural">Italian - IT</option>
+                                    <option value="ja-JP-KeitaNeural">Japanese - JP</option>
+                                    <option value="ko-KR-InJoonNeural">Korean - KR</option>
+                                    <option value="nb-NO-FinnNeural">Norwegian - NO</option>
+                                    <option value="nl-NL-ColetteNeural">Dutch - NL</option>
+                                    <option value="pl-PL-ZofiaNeural">Polish - PL</option>
+                                    <option value="pt-BR-BrendaNeural">Portuguese - BR</option>
+                                    <option value="pt-PT-RaquelNeural">Portuguese - PT</option>
+                                    <option value="ru-RU-DmitryNeural">Russian - RU</option>
+                                    <option value="sv-SE-HilleviNeural">Swedish - SE</option>
+                                    <option value="zh-CN-XiaohanNeural">Chinese - CN</option>
+                                    <option value="zh-HK-HiuGaaiNeural">Chinese - HK</option>
+                                    <option value="zh-TW-YunJheNeural">Chinese - TW</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        const originalLang = "pt-BR"
+        const region = "eastus";
+        const subscriptionKey = "623af3a812a044fab605de25f1cef1fb";
+        const keyOpenAI = "551bf66b991543a6872e6594fadda01b";
+        const startRecordingButton = document.getElementById("btnPlay");
+        const urlToken = "https://cog-voice.cognitiveservices.azure.com/sts/v1.0/issueToken";
+        const urlGPT = "https://openaihsouza.openai.azure.com/openai/deployments/chatgpt/completions?api-version=2022-12-01";
+        const urlMediaSender = "https://media.licdn.com/dms/image/C4E03AQHoLuOHzw1ejw/profile-displayphoto-shrink_800_800/0/1660315506228?e=1681948800&amp;v=beta&amp;t=9km4FMNweopihkuxTSgl4eI2JLdWNtQd99RM02Z6v38";
+        const languageTargetOptions = document.getElementById("languageTargetOptions");
+        const translationResult = document.getElementById("translationResult");
+        var SpeechSDK;
+        var authorizationToken = null;
+        var mediaRecorder = null;
+
+        function RequestAuthorizationToken() {
+
+            var myHeaders = new Headers();
+            myHeaders.append("Ocp-Apim-Subscription-Key", subscriptionKey);
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
+
+            fetch(urlToken, requestOptions)
+                .then(response => authorizationToken = response.text())
+                .then(result => authorizationToken = result)
+                .catch(error => console.log('error', error));
+        }
+
+        startRecordingButton.addEventListener("click", async () => {
+            (!translationResult.checked) ? getRecongnizeText() : getTranslation();
+        });
+
+        async function getRecongnizeText() {
+
+            var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey, "eastus");
+            speechConfig.speechRecognitionLanguage = "pt-BR";
+            var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+            var recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+            recognizer.recognizeOnceAsync(
+                function (result) {
+                    console.log(result.text);
+                    addTextOnScreen(result.text);
+                    askToOpenAI(result.text);
+                    recognizer.close();
+                    recognizer = undefined;
+
+                },
+                function (err) {
+                    console.trace("err - " + err);
+                    recognizer.close();
+                    recognizer = undefined;
+                });
+        }
+
+        function addTextOnScreen(text, isquestion = true) {
+            var line;
+            if(isquestion){
+                line = `<li class="clearfix">
+                    <div class="message-data text-right">
+                        <span class="message-data-time"> ${getDate()}</span>
+                    </div>
+                    <div class="message other-message float-right"> ${text} </div></li>`;
+                    
+            }else{
+                debugger;
+                line = `<li class="clearfix">
+                    <div class="message-data">
+                        <span class="message-data-time"> ${getDate()}</span>
+                    </div>
+                    <div class="message my-message"> ${text.replaceAll('\\n', '')} </div></li>`;
+            }
+
+            $(".chat-history > .m-b-0").append(line);
+
+        }
+
+        function getDate() {
+            const data = new Date();
+            const hora = ('0' + data.getHours()).slice(-2) + ':' + ('0' + data.getMinutes()).slice(-2);
+            const dia = data.toLocaleDateString('pt-BR', { weekday: 'long' });
+            const dataFormatada = hora + ', ' + dia;
+            return dataFormatada;
+        }
+
+        function getSpeechConfig(sdkConfigType) {
+            let speechConfig;
+
+            RequestAuthorizationToken();
+            //Caso tenha problemas na requisição do token, gerar via subscription key
+            if (authorizationToken) {
+                speechConfig = sdkConfigType.fromAuthorizationToken(authorizationToken, region);
+            } else {
+                speechConfig = sdkConfigType.fromSubscription(subscriptionKey, region);
+            }
+
+            // Definir o formato de saída do resultado Detalhado de como será solicitado.
+            // resultado JSON inclui alternativas, pontuações, palavras lexicais e outros informações.
+            if (sdkConfigType != SpeechSDK.SpeechConfig) {
+                window.console.log('Resultados detalhados não são suportados para este cenário.\r\n');
+            } else {
+                speechConfig.outputFormat = SpeechSDK.OutputFormat.Detailed;
+            }
+
+            // Define o(s) idioma(s) para o qual a fala deve ser traduzida.
+            // Vários idiomas podem ser especificados para tradução porém vamos utilizar apenas 1.
+            if (sdkConfigType == SpeechSDK.SpeechTranslationConfig) {
+                speechConfig.addTargetLanguage(languageTargetOptions.value.substr(0, 5));
+            }
+
+            speechConfig.speechRecognitionLanguage = originalLang;
+            return speechConfig;
+        }
+
+        function getTranslation() {
+
+            var speechConfig = getSpeechConfig(SpeechSDK.SpeechTranslationConfig);
+            if (!speechConfig) return;
+            var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+            reco = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
+            reco.recognizeOnceAsync(
+                function (result) {
+                    debugger;
+                    let languageTarget = languageTargetOptions.value.substr(0, 2);
+                    let translation = result.translations.get(languageTarget);
+                    addTextOnScreen(translation);
+                    askToOpenAI(translation);
+                    reco.close();
+                },
+                function (err) {
+                    window.console.log(err);
+                    reco.close();
+                });
+        }
+
+        function askToOpenAI(question) {
+           
+           var data = JSON.stringify({
+             "prompt": question,
+             "max_tokens": 4000,
+             "temperature": 0.7,
+             "frequency_penalty": 0,
+             "presence_penalty": 0,
+             "top_p": 1,
+             "best_of": 1,
+             "stop": null
+           });
+           
+           var config = {
+             method: 'post',
+             url: urlGPT,
+             headers: { 
+               'Content-Type': 'application/json', 
+               'api-key': keyOpenAI
+             },
+             data : data
+           };
+           
+           axios(config).then(function (response) {
+                var text = JSON.stringify(response.data.choices[0].text);
+                addTextOnScreen(text, false);
+           }).catch(function (error) {
+             console.log(error);
+           });
+        }
+
+
+    </script>
+</body>
+
+</html>
